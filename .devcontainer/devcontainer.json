@@ -1,0 +1,18 @@
+{
+  "image": "ghcr.io/gabrielbernard/advent-of-code-2024/rust-dev:2",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode",
+        "tamasfe.even-better-toml",
+        "fill-labs.dependi"
+      ]
+    }
+  },
+  "containerUser": "dev"
+}
