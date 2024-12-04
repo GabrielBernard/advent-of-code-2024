@@ -19,8 +19,8 @@ fn main() -> D1Result<()> {
         let mut split = line.split_whitespace();
         assert_eq!(split.clone().count(), 2);
 
-        let location_id_1 = split.next().expect("location id 1 should always exit");
-        let loaction_id_2 = split.next().expect("location id 2 should always exit");
+        let location_id_1 = split.next().expect("location id 1 should always exist");
+        let loaction_id_2 = split.next().expect("location id 2 should always exist");
 
         locations_1.push(location_id_1.parse()?);
         locations_2.push(loaction_id_2.parse()?);

@@ -8,11 +8,22 @@ The project is structured as [cargo workspaces](https://doc.rust-lang.org/book/c
 which means each `day-xx` folder (workspace) represents the challenge of that day and each of these folders
 contain a `Cargo.toml` file listing the dependencies used (if any) to solve that challenge.
 
-Each folder contains the `STATEMENT` of that day (followed by `_PARTX.txt` if the challenge had multiple parts),
-any `INPUT.txt` file of the challenge, and the code for the solution in the `src` sub-folder.
+Each folder is missing an `INPUT.txt` file for the challenge of that day.
+The code for the solution is in the `src` sub-folder of each day.
 
 As an example, to run the solution of the `day-01` challenge, use:
 
 ```bash
 cargo run -p day-01
 ```
+
+## Why aren't the statement and INPUT.txt files in this repository?
+
+The author of the advent of code event has a section about this in the [about page](https://adventofcode.com/2024/about)
+of the event where it mentions:
+
+> Can I copy/redistribute part of Advent of Code? **Please don't.**
+>
+> Advent of Code is free to use, not free to copy. If you're posting a code repository somewhere,
+> please don't include parts of Advent of Code like the puzzle text or your inputs.
+> If you're making a website, please don't make it look like Advent of Code or name it something similar.
