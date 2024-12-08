@@ -43,6 +43,34 @@ impl Equation {
     }
 }
 
+pub fn is_true_equation_p2_recursive(result: u64, equation: &[u64]) -> bool {
+    let Some((last, eq)) = equation.split_last() else {
+        return result == 0;
+    };
+
+    let is_addition_true = if *last <= result {
+        let addition = result - last;
+        is_true_equation_p2_recursive(addition, eq)
+    } else {
+        false
+    };
+
+    let multiplication = result / last;
+    let is_multiplication_true =
+        result % last == 0 && is_true_equation_p2_recursive(multiplication, eq);
+
+    let is_concat_true = if *last <= result {
+        let concat = result - last;
+        let how_many_tens = 10u64.pow(last.ilog10() + 1);
+
+        concat % how_many_tens == 0 && is_true_equation_p2_recursive(concat / how_many_tens, eq)
+    } else {
+        false
+    };
+
+    is_addition_true || is_multiplication_true || is_concat_true
+}
+
 impl From<&str> for Equation {
     fn from(value: &str) -> Self {
         let (test_value, equation) = value
@@ -76,6 +104,20 @@ pub fn sum_results_of_true_equations(equations: &[Equation]) -> u64 {
     true_equations.iter().map(|e| e.test_value()).sum()
 }
 
+pub fn true_equations_p2(equations: &[Equation]) -> Vec<Equation> {
+    equations
+        .iter()
+        .filter(|&eq| is_true_equation_p2_recursive(eq.test_value(), &eq.equation))
+        .map(Clone::clone)
+        .collect()
+}
+
+pub fn sum_results_of_true_equations_p2(equations: &[Equation]) -> u64 {
+    let true_equations = true_equations_p2(equations);
+
+    true_equations.iter().map(|e| e.test_value()).sum()
+}
+
 #[cfg(test)]
 mod test {
 
@@ -96,6 +138,27 @@ mod test {
         let actual = super::sum_results_of_true_equations(&equations);
 
         assert_eq!(3749, actual)
+    }
+
+    #[test]
+    fn find_equations_that_are_true_p2() {
+        let equations = super::equations_from_str(TEST_VALUES_AND_EQUATIONS);
+        let true_eq = super::true_equations_p2(&equations);
+
+        println!("{:?}", true_eq);
+
+        let actual = true_eq.len();
+
+        assert_eq!(6, actual)
+    }
+
+    #[test]
+    fn sum_of_result_of_true_equations_p2() {
+        let equations = super::equations_from_str(TEST_VALUES_AND_EQUATIONS);
+
+        let actual = super::sum_results_of_true_equations_p2(&equations);
+
+        assert_eq!(11387, actual)
     }
 
     const TEST_VALUES_AND_EQUATIONS: &str = r#"190: 10 19
